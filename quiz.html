@@ -4,25 +4,83 @@
 <head>
   <meta charset="UTF-8">
   <title>Quiz Ambiental | EcoInforma HGJ</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-green-50 text-green-900 font-sans">
 
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-6 text-green-700">Quiz Ambiental 🌿</h1>
-    <p class="mb-4">Teste seus conhecimentos sobre meio ambiente e descubra como pequenas ações podem transformar o planeta.</p>
+  <div class="container mx-auto px-4 py-8 max-w-xl">
+    <h1 class="text-3xl font-bold mb-6 text-green-700">🌿 Quiz Ambiental</h1>
+    <div id="quiz" class="space-y-6"></div>
 
-    <!-- Área do quiz interativo -->
-    <div id="quiz" class="bg-white rounded shadow-md p-6 space-y-4">
-      <p class="font-semibold">1. Qual dessas ações ajuda a preservar o meio ambiente?</p>
-      <button class="bg-green-100 hover:bg-green-200 px-4 py-2 rounded w-full text-left">a) Jogar lixo nos rios</button>
-      <button class="bg-green-100 hover:bg-green-200 px-4 py-2 rounded w-full text-left">b) Reutilizar materiais e reciclar</button>
-      <button class="bg-green-100 hover:bg-green-200 px-4 py-2 rounded w-full text-left">c) Deixar a torneira aberta</button>
-    </div>
+    <div id="result" class="mt-8 text-xl font-semibold text-green-700 hidden"></div>
 
-    <!-- Voltar -->
-    <a href="index.html" class="mt-8 inline-block text-green-700 hover:underline">← Voltar para o início</a>
+    <a href="index.html" class="mt-6 inline-block text-green-600 hover:underline">← Voltar para o início</a>
   </div>
 
+  <script>
+    const questions = [
+      {
+        question: "Qual dessas ações ajuda a preservar o meio ambiente?",
+        options: [
+          "Jogar lixo nos rios",
+          "Reutilizar materiais e reciclar",
+          "Deixar a torneira aberta"
+        ],
+        correct: 1
+      },
+      {
+        question: "Qual é uma fonte de energia renovável?",
+        options: [
+          "Petróleo",
+          "Carvão",
+          "Energia solar"
+        ],
+        correct: 2
+      },
+      {
+        question: "O que pode ser feito para economizar água?",
+        options: [
+          "Lavar a calçada com mangueira",
+          "Escovar os dentes com a torneira aberta",
+          "Usar balde em vez de mangueira"
+        ],
+        correct: 2
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const q = questions[current];
+      const quizDiv = document.getElementById("quiz");
+      quizDiv.innerHTML = `
+        <div class="bg-white shadow rounded p-6">
+          <p class="text-lg font-medium mb-4">${q.question}</p>
+          ${q.options.map((opt, i) => `
+            <button onclick="checkAnswer(${i})"
+              class="block w-full text-left bg-green-100 hover:bg-green-200 text-green-800 rounded px-4 py-2 mb-2">${opt}</button>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function checkAnswer(selected) {
+      const q = questions[current];
+      if (selected === q.correct) score++;
+      current++;
+
+      if (current < questions.length) {
+        showQuestion();
+      } else {
+        document.getElementById("quiz").classList.add("hidden");
+        document.getElementById("result").classList.remove("hidden");
+        document.getElementById("result").textContent = `Você acertou ${score} de ${questions.length} perguntas! 🌱`;
+      }
+    }
+
+    showQuestion();
+  </script>
 </body>
 </html>
+
