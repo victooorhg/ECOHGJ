@@ -1,8 +1,8 @@
 {
   "name": "EcoInforma HGJ",
   "short_name": "EcoInforma",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/ECOHGJ/",
+  "scope": "/ECOHGJ/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
